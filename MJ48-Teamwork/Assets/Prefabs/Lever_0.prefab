@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemReqs: []
   onlyPlayer: 0
-  anim: {fileID: 0}
+  anim: {fileID: 3012163708872148924}
   linkedRefs: []
 --- !u!61 &405067402896300747
 BoxCollider2D:
