@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     // Start is called before the first frame update
-    public bool open;
+    bool open;
     int openValue;
     Animator anim;
     void Start()
@@ -15,8 +15,19 @@ public class Door : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    
+
+    public void SetDoorState(bool state)
     {
+        open = state;
         anim.SetBool(openValue, open);
+        
     }
+
+    public bool GetDoorState()
+    {
+        return open;
+    }
+
+
 }
