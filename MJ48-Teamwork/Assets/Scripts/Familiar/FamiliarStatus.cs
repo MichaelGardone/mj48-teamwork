@@ -16,7 +16,8 @@ public enum FamiliarStatus
     // Interact with the character/object
     INTERACT,
 
-    // VVV SHOULD NOT BE SENT VVV //
+    // For when the familiar is doing something else and can't hear the player
+    DISTRACTED,
 
 }
 

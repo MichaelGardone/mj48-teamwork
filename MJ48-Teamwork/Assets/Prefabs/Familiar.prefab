@@ -164,18 +164,12 @@ MonoBehaviour:
   followSpeed: 450
   attackSpeed: 525
   maxActiveMagicalBalls: 4
+  projectilePoolSize: 8
   player: {fileID: 0}
   rb: {fileID: 899373813965051726}
   target: {fileID: 0}
-  magicPool:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  proj: {fileID: 1493300105987901068, guid: 2446f5bd2719e3641ad84e538584f510, type: 3}
+  projPool: []
 --- !u!50 &899373813965051726
 Rigidbody2D:
   serializedVersion: 4

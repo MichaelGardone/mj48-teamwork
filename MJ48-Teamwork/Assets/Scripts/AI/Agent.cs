@@ -7,15 +7,19 @@ public class Agent : IAgent
     [Header("AI Agent Information")]
     public float dummy;
 
-    // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (health <= 0)
+            Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        health -= collision.gameObject.GetComponent<Projectile>().damage;
     }
 }

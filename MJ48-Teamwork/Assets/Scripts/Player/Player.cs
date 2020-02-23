@@ -10,12 +10,13 @@ public class Player : IAgent
     public float speed = 10f;
     public float maxSpeed = 10f;
 
+    public List<IItem> inventory;
+
     void Start()
     {
-
+        inventory = new List<IItem>();
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -25,6 +26,11 @@ public class Player : IAgent
     {
         // Update velocity
         rb.velocity = InputPoll.leftAnalog * Time.deltaTime * speed;
+    }
+
+    public void AddItem(IItem item)
+    {
+        inventory.Add(item);
     }
 
 }

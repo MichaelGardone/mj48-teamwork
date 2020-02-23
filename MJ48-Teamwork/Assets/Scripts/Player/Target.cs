@@ -99,9 +99,9 @@ public class Target : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector3(0, 0, 1), 20f);
             if (hit)
             {
-                if (hit.collider.gameObject.GetComponent<Item>())
+                if (hit.collider.gameObject.GetComponent<IItem>())
                     cfp.Invoke(FamiliarStatus.RETRIEVE, hit.point);
-                else if (hit.collider.gameObject.GetComponent<Interactable>())
+                else if (hit.collider.gameObject.GetComponent<IInteractable>())
                     cfp.Invoke(FamiliarStatus.INTERACT, hit.point);
                 else
                     cfp.Invoke(FamiliarStatus.MOVE, hit.point);

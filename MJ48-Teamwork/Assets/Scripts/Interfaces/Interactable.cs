@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+[System.Serializable]
+public class Tuple
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public ItemType itemType;
 
-    // Update is called once per frame
-    void Update()
+    public int id;
+
+    public Tuple(ItemType i1, int i2)
     {
-        
+        itemType = i1;
+        id = i2;
     }
+}
+
+
+
+public abstract class IInteractable : MonoBehaviour
+{
+
+    public List<Tuple> itemReqs;
+
+    public abstract void Interact();
+
 }

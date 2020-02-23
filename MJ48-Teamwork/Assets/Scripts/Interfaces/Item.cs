@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+// TODO: Replace with ScriptableObject, better behavior that way
+public abstract class IItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    protected ItemType itemType;
+    public float cooldownDropTime = 2f;
+    protected float timer = 0f;
+
 }
