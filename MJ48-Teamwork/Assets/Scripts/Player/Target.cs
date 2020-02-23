@@ -8,15 +8,45 @@ public class Target : MonoBehaviour
     public float speed = 5f;
     public Camera limiter;
     public float zOffset = 5f;
+    public SpriteRenderer render;
 
-    private void Start()
-    {
-        
-    }
+    public float timeToMakeReticleGone = 1f;
+    float timer = 0f;
 
-    // Update is called once per frame
+    public float timeToBeginFade = 2f;
+    float timeToFade = 0f;
+    bool startFade = false;
+
     void Update()
     {
+
+        // Most definitely a better way to do this than use two timers...
+        // TODO: Replace with an enumerator
+        if(InputPoll.rightAnalog == Vector2.zero && render.color.a > 0 && startFade == false)
+        {
+            timeToFade += Time.deltaTime;
+            if(timeToFade >= timeToBeginFade)
+            {
+                timeToFade = 0;
+                startFade = true;
+            }
+        }
+        else // we need to reset the targeter
+            if (InputPoll.rightAnalog != Vector2.zero)
+                render.color = new Color(render.color.r, render.color.g, render.color.b, 1);
+
+        if (startFade)
+        {
+            timer += Time.deltaTime;
+            render.color = new Color(render.color.r, render.color.g, render.color.b, Mathf.Clamp(1 - timer / timeToMakeReticleGone, 0, 1));
+            
+            if (timer >= timeToMakeReticleGone)
+            {
+                timer = 0;
+                startFade = false;
+            }
+        }
+        
         transform.Translate(new Vector3(1, 1, 0) * InputPoll.rightAnalog * speed * Time.deltaTime, Space.World);
 
         Vector3 cameraSpacePos = limiter.WorldToScreenPoint(transform.position);
