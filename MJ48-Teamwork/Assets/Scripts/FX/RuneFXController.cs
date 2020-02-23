@@ -9,7 +9,7 @@ public class RuneFXController : MonoBehaviour
     public SpriteRenderer FXSprite;
     
 
-    public void SpawnFXOfType(FamiliarCommands command)
+    public void SpawnFXOfType(FamiliarStatus command)
     {
         Color runecolor = runeDefinition.GetColorFromCommand(command);
         FXSprite.color = runecolor;

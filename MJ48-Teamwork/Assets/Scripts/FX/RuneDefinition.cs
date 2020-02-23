@@ -11,19 +11,19 @@ public class RuneDefinition :ScriptableObject
     public Color MoveColor;
     public Color AttackColor;
 
-    public Color GetColorFromCommand(FamiliarCommands command)
+    public Color GetColorFromCommand(FamiliarStatus command)
     {
         switch (command)
         {
-            case FamiliarCommands.FOLLOW:
+            case FamiliarStatus.FOLLOW:
                 return FollowColor;               
-            case FamiliarCommands.MOVE:
+            case FamiliarStatus.MOVE:
                 return MoveColor;  
-            case FamiliarCommands.ATTACK:
+            case FamiliarStatus.ATTACK:
                 return AttackColor;
-            case FamiliarCommands.RETRIEVE:
+            case FamiliarStatus.RETRIEVE:
                 return RetrieveColor;
-            case FamiliarCommands.INTERACT:
+            case FamiliarStatus.INTERACT:
                 return InteractColor;
             default:
                 return Color.white;
