@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Target : MonoBehaviour
 {
@@ -17,12 +18,30 @@ public class Target : MonoBehaviour
     float timeToFade = 0f;
     bool startFade = false;
 
+    CommandFamiliar_GameObject cfgo;
+    CommandFamiliar_Position cfp;
+
+    private void Awake()
+    {
+        cfgo = new CommandFamiliar_GameObject();
+        cfp = new CommandFamiliar_Position();
+    }
+
+    public void RegisterCFP(UnityAction<FamiliarCommands, Vector3> func)
+    {
+        cfp.AddListener(func);
+    }
+
+    public void RegisterCFGO(UnityAction<FamiliarCommands, GameObject> func)
+    {
+        cfgo.AddListener(func);
+    }
+
     void Update()
     {
-
         // Most definitely a better way to do this than use two timers...
         // TODO: Replace with an enumerator
-        if(InputPoll.rightAnalog == Vector2.zero && render.color.a > 0 && startFade == false)
+        if(InputPoll.rightAnalog == Vector2.zero && InputPoll.WestButtonPressed && render.color.a > 0 && startFade == false)
         {
             timeToFade += Time.deltaTime;
             if(timeToFade >= timeToBeginFade)
@@ -32,8 +51,12 @@ public class Target : MonoBehaviour
             }
         }
         else // we need to reset the targeter
-            if (InputPoll.rightAnalog != Vector2.zero)
+        {
+            timeToFade = 0;
+            startFade = false;
+            if (InputPoll.rightAnalog != Vector2.zero || InputPoll.NorthButtonPressed || InputPoll.SouthButtonPressed || InputPoll.WestButtonPressed)
                 render.color = new Color(render.color.r, render.color.g, render.color.b, 1);
+        }
 
         if (startFade)
         {
@@ -77,6 +100,33 @@ public class Target : MonoBehaviour
 
         if (InputPoll.ResetRightAnalog)
             transform.position = limiter.ScreenToWorldPoint(new Vector3(limiter.pixelWidth / 2, limiter.pixelHeight / 2, zOffset));
+
+        if(InputPoll.WestButtonPressed)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector3(0, 0, 1), 20f);
+            if (hit)
+            {
+                if(hit.collider.gameObject.GetComponent<Interactable>())
+                {
+                    Debug.Log("Interactable");
+                }
+                else if (hit.collider.gameObject.GetComponent<Item>())
+                {
+                    Debug.Log("Item");
+                }
+                else if(hit.collider.gameObject.GetComponent<Agent>())
+                {
+                    Debug.Log("Agent");
+                }
+                else
+                {
+                    cfp.Invoke(FamiliarCommands.MOVE, hit.point);
+                }
+            }
+        }
+
+        if (InputPoll.NorthButtonPressed)
+            cfp.Invoke(FamiliarCommands.FOLLOW, Vector3.zero);
 
     }
 }

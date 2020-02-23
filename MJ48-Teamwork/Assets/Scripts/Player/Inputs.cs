@@ -41,6 +41,38 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""38160fa6-cd3c-4575-b026-e965821da99e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""North"",
+                    ""type"": ""Button"",
+                    ""id"": ""35b9a828-0277-4589-90f7-b558fcc4ad67"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""West"",
+                    ""type"": ""Button"",
+                    ""id"": ""9c8bb7ba-89ed-4d32-b31b-e79556a7032a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""South"",
+                    ""type"": ""Button"",
+                    ""id"": ""0a5c17fd-d171-4f48-99ce-3ecf290647b6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -74,6 +106,50 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RightAnalogDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b88b7de9-aa73-48ac-8788-e0743b9072d4"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""West"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""114acaf3-96d1-45a5-9999-469eea3b9952"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""South"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fcd36a46-9edf-4dea-a80f-3201c451f818"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""North"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d92529c7-fc18-43d8-b56c-a40bcdddd28d"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -228,6 +304,10 @@ public class @Inputs : IInputActionCollection, IDisposable
         m_Controller_LeftAnalog = m_Controller.FindAction("LeftAnalog", throwIfNotFound: true);
         m_Controller_RightAnalog = m_Controller.FindAction("RightAnalog", throwIfNotFound: true);
         m_Controller_RightAnalogDown = m_Controller.FindAction("RightAnalogDown", throwIfNotFound: true);
+        m_Controller_Start = m_Controller.FindAction("Start", throwIfNotFound: true);
+        m_Controller_North = m_Controller.FindAction("North", throwIfNotFound: true);
+        m_Controller_West = m_Controller.FindAction("West", throwIfNotFound: true);
+        m_Controller_South = m_Controller.FindAction("South", throwIfNotFound: true);
         // Keyboard
         m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
         m_Keyboard_Up = m_Keyboard.FindAction("Up", throwIfNotFound: true);
@@ -289,6 +369,10 @@ public class @Inputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Controller_LeftAnalog;
     private readonly InputAction m_Controller_RightAnalog;
     private readonly InputAction m_Controller_RightAnalogDown;
+    private readonly InputAction m_Controller_Start;
+    private readonly InputAction m_Controller_North;
+    private readonly InputAction m_Controller_West;
+    private readonly InputAction m_Controller_South;
     public struct ControllerActions
     {
         private @Inputs m_Wrapper;
@@ -296,6 +380,10 @@ public class @Inputs : IInputActionCollection, IDisposable
         public InputAction @LeftAnalog => m_Wrapper.m_Controller_LeftAnalog;
         public InputAction @RightAnalog => m_Wrapper.m_Controller_RightAnalog;
         public InputAction @RightAnalogDown => m_Wrapper.m_Controller_RightAnalogDown;
+        public InputAction @Start => m_Wrapper.m_Controller_Start;
+        public InputAction @North => m_Wrapper.m_Controller_North;
+        public InputAction @West => m_Wrapper.m_Controller_West;
+        public InputAction @South => m_Wrapper.m_Controller_South;
         public InputActionMap Get() { return m_Wrapper.m_Controller; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -314,6 +402,18 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @RightAnalogDown.started -= m_Wrapper.m_ControllerActionsCallbackInterface.OnRightAnalogDown;
                 @RightAnalogDown.performed -= m_Wrapper.m_ControllerActionsCallbackInterface.OnRightAnalogDown;
                 @RightAnalogDown.canceled -= m_Wrapper.m_ControllerActionsCallbackInterface.OnRightAnalogDown;
+                @Start.started -= m_Wrapper.m_ControllerActionsCallbackInterface.OnStart;
+                @Start.performed -= m_Wrapper.m_ControllerActionsCallbackInterface.OnStart;
+                @Start.canceled -= m_Wrapper.m_ControllerActionsCallbackInterface.OnStart;
+                @North.started -= m_Wrapper.m_ControllerActionsCallbackInterface.OnNorth;
+                @North.performed -= m_Wrapper.m_ControllerActionsCallbackInterface.OnNorth;
+                @North.canceled -= m_Wrapper.m_ControllerActionsCallbackInterface.OnNorth;
+                @West.started -= m_Wrapper.m_ControllerActionsCallbackInterface.OnWest;
+                @West.performed -= m_Wrapper.m_ControllerActionsCallbackInterface.OnWest;
+                @West.canceled -= m_Wrapper.m_ControllerActionsCallbackInterface.OnWest;
+                @South.started -= m_Wrapper.m_ControllerActionsCallbackInterface.OnSouth;
+                @South.performed -= m_Wrapper.m_ControllerActionsCallbackInterface.OnSouth;
+                @South.canceled -= m_Wrapper.m_ControllerActionsCallbackInterface.OnSouth;
             }
             m_Wrapper.m_ControllerActionsCallbackInterface = instance;
             if (instance != null)
@@ -327,6 +427,18 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @RightAnalogDown.started += instance.OnRightAnalogDown;
                 @RightAnalogDown.performed += instance.OnRightAnalogDown;
                 @RightAnalogDown.canceled += instance.OnRightAnalogDown;
+                @Start.started += instance.OnStart;
+                @Start.performed += instance.OnStart;
+                @Start.canceled += instance.OnStart;
+                @North.started += instance.OnNorth;
+                @North.performed += instance.OnNorth;
+                @North.canceled += instance.OnNorth;
+                @West.started += instance.OnWest;
+                @West.performed += instance.OnWest;
+                @West.canceled += instance.OnWest;
+                @South.started += instance.OnSouth;
+                @South.performed += instance.OnSouth;
+                @South.canceled += instance.OnSouth;
             }
         }
     }
@@ -417,6 +529,10 @@ public class @Inputs : IInputActionCollection, IDisposable
         void OnLeftAnalog(InputAction.CallbackContext context);
         void OnRightAnalog(InputAction.CallbackContext context);
         void OnRightAnalogDown(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
+        void OnNorth(InputAction.CallbackContext context);
+        void OnWest(InputAction.CallbackContext context);
+        void OnSouth(InputAction.CallbackContext context);
     }
     public interface IKeyboardActions
     {

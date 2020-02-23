@@ -8,10 +8,18 @@ public class InputPoll : MonoBehaviour
 {
     Inputs input;
 
+    // Thumbsticks
     public static Vector2 leftAnalog;
     public static Vector2 rightAnalog;
-
     public static bool ResetRightAnalog;
+
+    // Secondary
+    public static bool PauseButtonPressed;
+
+    // Face buttons
+    public static bool WestButtonPressed;
+    public static bool NorthButtonPressed;
+    public static bool SouthButtonPressed;
 
     private void Awake()
     {
@@ -25,6 +33,18 @@ public class InputPoll : MonoBehaviour
 
         input.Controller.RightAnalogDown.performed += ctx => ResetRightAnalog = true;
         input.Controller.RightAnalogDown.canceled += ctx => ResetRightAnalog = false;
+
+        input.Controller.North.performed += ctx => NorthButtonPressed = true;
+        input.Controller.North.canceled += ctx => NorthButtonPressed = false;
+        
+        input.Controller.West.performed += ctx => WestButtonPressed = true;
+        input.Controller.West.canceled += ctx => WestButtonPressed = false;
+
+        input.Controller.South.performed += ctx => SouthButtonPressed = true;
+        input.Controller.South.canceled += ctx => SouthButtonPressed = false;
+
+        input.Controller.Start.performed += ctx => PauseButtonPressed = true;
+        input.Controller.Start.canceled += ctx => PauseButtonPressed = false;
     }
 
     private void OnEnable()
