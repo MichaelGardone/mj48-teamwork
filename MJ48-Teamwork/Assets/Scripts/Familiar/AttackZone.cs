@@ -15,7 +15,7 @@ public class AttackZone : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.GetComponent<Agent>())
-            Debug.Log("gone");
+            familiar.LostTarget(collision.gameObject);
     }
 
 }

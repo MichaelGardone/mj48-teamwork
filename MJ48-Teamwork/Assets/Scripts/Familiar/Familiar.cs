@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Familiar : MonoBehaviour
+public class Familiar : IAgent
 {
-
+    [Header("Familiar Information")]
     public float stopRadius = 2f;
     public float slowDownRadius = 3f;
     public float followSpeed = 5f;
     public float attackSpeed = 5f;
+
+    public int maxActiveMagicalBalls = 4;
 
     public Player player;
 
@@ -22,6 +24,8 @@ public class Familiar : MonoBehaviour
 
     List<GameObject> targets;
 
+    public GameObject[] magicPool;
+
     private void Start()
     {
         targets = new List<GameObject>();
@@ -34,6 +38,9 @@ public class Familiar : MonoBehaviour
     {
         if(status == FamiliarStatus.FOLLOW)
             targetPosition = player.transform.position;
+
+        if (targets.Count > 0 && status != FamiliarStatus.ATTACK)
+            status = FamiliarStatus.ATTACK;
     }
 
     void FixedUpdate()
@@ -47,6 +54,9 @@ public class Familiar : MonoBehaviour
                 SeekPosition(0.1f, 0);
                 break;
             case FamiliarStatus.ATTACK:
+                SeekPosition(0.1f, 0);
+                if (targets.Count >= 1 && Vector3.Distance(transform.position, targets[0].transform.position) < 2f)
+                    rb.velocity = Vector2.zero;
                 Attack();
                 break;
             case FamiliarStatus.INTERACT:
@@ -58,7 +68,7 @@ public class Familiar : MonoBehaviour
 
     void Attack()
     {
-        Debug.Log("pew");
+
     }
 
     public void AwaitMove(FamiliarStatus command, Vector3 target)

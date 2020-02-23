@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Agent : IAgent
+public class Projectile : MonoBehaviour
 {
-    [Header("AI Agent Information")]
-    public float dummy;
-
     // Start is called before the first frame update
     void Start()
     {
-        health = maxHealth;
+        
     }
 
     // Update is called once per frame

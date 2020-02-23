@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : IAgent
 {
+    [Header("Player Information")]
     public Rigidbody2D rb;
 
     public float speed = 10f;

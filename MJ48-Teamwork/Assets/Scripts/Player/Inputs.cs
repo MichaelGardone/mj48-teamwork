@@ -214,6 +214,30 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""E"",
+                    ""type"": ""Button"",
+                    ""id"": ""90bbe737-33ac-40bd-9bc0-86d185573c9b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""R"",
+                    ""type"": ""Button"",
+                    ""id"": ""f9965384-97da-40ec-8d9c-83dbb695344f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""9f2a394c-a1ef-409d-9b49-78bcaa23ce86"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -293,6 +317,39 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""action"": ""LMB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44a4e933-88e1-4a56-b46f-8a32a268f81c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""E"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb76c348-6d67-4448-8f92-c07de3e01151"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""R"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f6fa2ff-6723-4063-a9b1-82c60570e4a1"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -317,6 +374,9 @@ public class @Inputs : IInputActionCollection, IDisposable
         m_Keyboard_Shift = m_Keyboard.FindAction("Shift", throwIfNotFound: true);
         m_Keyboard_Mouse = m_Keyboard.FindAction("Mouse", throwIfNotFound: true);
         m_Keyboard_LMB = m_Keyboard.FindAction("LMB", throwIfNotFound: true);
+        m_Keyboard_E = m_Keyboard.FindAction("E", throwIfNotFound: true);
+        m_Keyboard_R = m_Keyboard.FindAction("R", throwIfNotFound: true);
+        m_Keyboard_Pause = m_Keyboard.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -454,6 +514,9 @@ public class @Inputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Keyboard_Shift;
     private readonly InputAction m_Keyboard_Mouse;
     private readonly InputAction m_Keyboard_LMB;
+    private readonly InputAction m_Keyboard_E;
+    private readonly InputAction m_Keyboard_R;
+    private readonly InputAction m_Keyboard_Pause;
     public struct KeyboardActions
     {
         private @Inputs m_Wrapper;
@@ -465,6 +528,9 @@ public class @Inputs : IInputActionCollection, IDisposable
         public InputAction @Shift => m_Wrapper.m_Keyboard_Shift;
         public InputAction @Mouse => m_Wrapper.m_Keyboard_Mouse;
         public InputAction @LMB => m_Wrapper.m_Keyboard_LMB;
+        public InputAction @E => m_Wrapper.m_Keyboard_E;
+        public InputAction @R => m_Wrapper.m_Keyboard_R;
+        public InputAction @Pause => m_Wrapper.m_Keyboard_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -495,6 +561,15 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @LMB.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnLMB;
                 @LMB.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnLMB;
                 @LMB.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnLMB;
+                @E.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnE;
+                @E.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnE;
+                @E.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnE;
+                @R.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnR;
+                @R.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnR;
+                @R.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnR;
+                @Pause.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_KeyboardActionsCallbackInterface = instance;
             if (instance != null)
@@ -520,6 +595,15 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @LMB.started += instance.OnLMB;
                 @LMB.performed += instance.OnLMB;
                 @LMB.canceled += instance.OnLMB;
+                @E.started += instance.OnE;
+                @E.performed += instance.OnE;
+                @E.canceled += instance.OnE;
+                @R.started += instance.OnR;
+                @R.performed += instance.OnR;
+                @R.canceled += instance.OnR;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -543,5 +627,8 @@ public class @Inputs : IInputActionCollection, IDisposable
         void OnShift(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
         void OnLMB(InputAction.CallbackContext context);
+        void OnE(InputAction.CallbackContext context);
+        void OnR(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

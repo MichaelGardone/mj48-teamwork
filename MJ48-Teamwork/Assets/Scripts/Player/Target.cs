@@ -18,12 +18,10 @@ public class Target : MonoBehaviour
     float timeToFade = 0f;
     bool startFade = false;
 
-    CommandFamiliar_GameObject cfgo;
     CommandFamiliar_Position cfp;
 
     private void Awake()
     {
-        cfgo = new CommandFamiliar_GameObject();
         cfp = new CommandFamiliar_Position();
     }
 
@@ -100,7 +98,14 @@ public class Target : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector3(0, 0, 1), 20f);
             if (hit)
-                cfp.Invoke(FamiliarStatus.MOVE, hit.point);
+            {
+                if (hit.collider.gameObject.GetComponent<Item>())
+                    cfp.Invoke(FamiliarStatus.RETRIEVE, hit.point);
+                else if (hit.collider.gameObject.GetComponent<Interactable>())
+                    cfp.Invoke(FamiliarStatus.INTERACT, hit.point);
+                else
+                    cfp.Invoke(FamiliarStatus.MOVE, hit.point);
+            }
         }
 
         if (InputPoll.NorthButtonPressed)
