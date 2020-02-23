@@ -22,7 +22,7 @@ public class Familiar : IAgent
 
     public float relationship = 0.25f;
 
-    FamiliarStatus status;
+    public FamiliarStatus status;
 
     Vector3 targetPosition;
 
