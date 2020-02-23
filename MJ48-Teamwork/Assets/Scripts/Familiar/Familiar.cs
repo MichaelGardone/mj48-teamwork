@@ -16,21 +16,23 @@ public class Familiar : MonoBehaviour
 
     public Target target;
 
-    FamiliarCommands status;
+    FamiliarStatus status;
 
     Vector3 targetPosition;
 
+    List<GameObject> targets;
+
     private void Start()
     {
-        status = FamiliarCommands.FOLLOW;
+        targets = new List<GameObject>();
+        status = FamiliarStatus.FOLLOW;
 
         target.RegisterCFP(AwaitMove);
-        target.RegisterCFGO(AwaitCommand);
     }
 
     private void Update()
     {
-        if(status == FamiliarCommands.FOLLOW)
+        if(status == FamiliarStatus.FOLLOW)
             targetPosition = player.transform.position;
     }
 
@@ -38,34 +40,34 @@ public class Familiar : MonoBehaviour
     {
         switch (status)
         {
-            case FamiliarCommands.FOLLOW:
+            case FamiliarStatus.FOLLOW:
                 SeekPlayer();
                 break;
-            case FamiliarCommands.MOVE:
+            case FamiliarStatus.MOVE:
                 SeekPosition(0.1f, 0);
                 break;
-            case FamiliarCommands.ATTACK:
+            case FamiliarStatus.ATTACK:
+                Attack();
                 break;
-            case FamiliarCommands.INTERACT:
+            case FamiliarStatus.INTERACT:
                 break;
-            case FamiliarCommands.RETRIEVE:
+            case FamiliarStatus.RETRIEVE:
                 break;
         }
-
     }
 
-    public void AwaitMove(FamiliarCommands command, Vector3 target)
+    void Attack()
+    {
+        Debug.Log("pew");
+    }
+
+    public void AwaitMove(FamiliarStatus command, Vector3 target)
     {
         status = command;
-        if (command == FamiliarCommands.FOLLOW)
+        if (command == FamiliarStatus.FOLLOW)
             targetPosition = player.transform.position;
         else
             targetPosition = target;
-    }
-
-    public void AwaitCommand(FamiliarCommands command, GameObject target)
-    {
-        status = command;
     }
 
     private void SeekPlayer()
@@ -110,9 +112,18 @@ public class Familiar : MonoBehaviour
             rb.velocity = Vector2.zero;
     }
 
-    private void Avoid()
+    public void FoundTarget(GameObject target)
     {
+        status = FamiliarStatus.ATTACK;
+        targets.Add(target);
+        rb.velocity = Vector2.zero;
+    }
 
+    public void LostTarget(GameObject target)
+    {
+        targets.Remove(target);
+        if (targets.Count == 0)
+            status = FamiliarStatus.MOVE;
     }
 
 }

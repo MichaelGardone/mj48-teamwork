@@ -1,5 +1,5 @@
 ﻿
-public enum FamiliarCommands
+public enum FamiliarStatus
 {
     // Follow the player around the map
     FOLLOW,
@@ -13,7 +13,10 @@ public enum FamiliarCommands
     // Go to the location, grab the item, and return
     RETRIEVE,
 
-    // Interact with the character
+    // Interact with the character/object
     INTERACT,
+
+    // VVV SHOULD NOT BE SENT VVV //
+
 }
 

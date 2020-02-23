@@ -27,14 +27,9 @@ public class Target : MonoBehaviour
         cfp = new CommandFamiliar_Position();
     }
 
-    public void RegisterCFP(UnityAction<FamiliarCommands, Vector3> func)
+    public void RegisterCFP(UnityAction<FamiliarStatus, Vector3> func)
     {
         cfp.AddListener(func);
-    }
-
-    public void RegisterCFGO(UnityAction<FamiliarCommands, GameObject> func)
-    {
-        cfgo.AddListener(func);
     }
 
     void Update()
@@ -105,28 +100,11 @@ public class Target : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector3(0, 0, 1), 20f);
             if (hit)
-            {
-                if(hit.collider.gameObject.GetComponent<Interactable>())
-                {
-                    Debug.Log("Interactable");
-                }
-                else if (hit.collider.gameObject.GetComponent<Item>())
-                {
-                    Debug.Log("Item");
-                }
-                else if(hit.collider.gameObject.GetComponent<Agent>())
-                {
-                    Debug.Log("Agent");
-                }
-                else
-                {
-                    cfp.Invoke(FamiliarCommands.MOVE, hit.point);
-                }
-            }
+                cfp.Invoke(FamiliarStatus.MOVE, hit.point);
         }
 
         if (InputPoll.NorthButtonPressed)
-            cfp.Invoke(FamiliarCommands.FOLLOW, Vector3.zero);
+            cfp.Invoke(FamiliarStatus.FOLLOW, Vector3.zero);
 
     }
 }
