@@ -213,7 +213,8 @@ public class Familiar : IAgent
         }
 
         rb.velocity = Vector2.zero;
-        status = FamiliarStatus.FOLLOW;
+        status = FamiliarStatus.MOVE;
+        targetPosition = transform.position;
     }
 
 }

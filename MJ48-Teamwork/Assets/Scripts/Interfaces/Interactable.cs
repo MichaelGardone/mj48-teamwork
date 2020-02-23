@@ -23,6 +23,8 @@ public abstract class IInteractable : MonoBehaviour
 
     public List<Tuple> itemReqs;
 
+    public bool onlyPlayer = false;
+
     public abstract void Interact();
 
 }
