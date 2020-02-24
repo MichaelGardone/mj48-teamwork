@@ -8,6 +8,9 @@ public class DoorAnim : MonoBehaviour
     bool open;
     int openValue;
     Animator anim;
+    [SerializeField] AudioClip doorOpen;
+    [SerializeField] AudioClip doorClose;
+    public AudioSource source;
     void Start()
     {
         openValue = Animator.StringToHash("Open");
@@ -21,6 +24,14 @@ public class DoorAnim : MonoBehaviour
     {
         open = state;
         anim.SetBool(openValue, open);
+        if (open)
+        {
+            source.PlayOneShot(doorOpen);
+        }
+        else
+        {
+            source.PlayOneShot(doorClose);
+        }
         
     }
 

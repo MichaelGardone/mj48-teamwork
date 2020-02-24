@@ -6,6 +6,7 @@ public class Door : MonoBehaviour
 {
     //TODO Add logic for going through
     public bool requiresKey;
+    
 
     public void ActivateDoor(bool isOpen)
     {
