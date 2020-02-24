@@ -10,8 +10,9 @@ public class Door : MonoBehaviour
     private DoorAnim anim;
     [SerializeField] Door warpTarget;
     public bool stopRegisteringTrigger;
-    private void Awake()
+    private void Start()
     {
+        anim = GetComponent<DoorAnim>();
         anim.SetDoorState(isOpen);
     }
 
