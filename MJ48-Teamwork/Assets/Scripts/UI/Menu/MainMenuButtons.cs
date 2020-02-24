@@ -68,8 +68,14 @@ public class MainMenuButtons : MonoBehaviour
                 case 1:
                     break;
                 case 2:
+
                     break;
                 case 3:
+#if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+#else
+                    Application.Quit();
+#endif
                     break;
             }
         }
