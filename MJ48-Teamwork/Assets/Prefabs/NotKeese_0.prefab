@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 1161396668846823983}
   - component: {fileID: 1161396668846823980}
   - component: {fileID: 1161396668846823969}
+  - component: {fileID: 4318030565362644022}
+  - component: {fileID: 7539564957028381666}
+  - component: {fileID: 1068808854727600021}
   m_Layer: 0
   m_Name: NotKeese_0
   m_TagString: Untagged
@@ -120,3 +123,56 @@ MonoBehaviour:
   projectileRange: 10
   meleeRange: 1
   attackFrequency: 3
+--- !u!114 &4318030565362644022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161396668846823981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85e356359e8073d43802ace709b10776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  maxHealth: 10
+  pathfinding: {fileID: 1068808854727600021}
+  player: {fileID: 0}
+  rb: {fileID: 7539564957028381666}
+  moveSpeed: 100
+--- !u!50 &7539564957028381666
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161396668846823981}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1068808854727600021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161396668846823981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 346f97bdd7f161f4c80319fabb37d22c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  drawPath: 0
