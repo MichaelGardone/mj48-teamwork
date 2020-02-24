@@ -8,8 +8,8 @@ public class Node
     public bool isSolid = false;
     public int xPos, yPos;
 
-    public float gCost, hCost;
-    public float fCost { get { return gCost + hCost; } }
+    public int gCost, hCost;
+    public int fCost { get { return gCost + hCost; } }
 
     public Node parent;
     

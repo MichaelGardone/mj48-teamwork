@@ -28,7 +28,7 @@ public class AStar : MonoBehaviour
         {
             Node curr = open[open.Count - 1];
 
-            open.Remove(curr);
+            open.RemoveAt(open.Count - 1);
             closed.Add(curr);
 
             if(curr == endN)
@@ -41,16 +41,17 @@ public class AStar : MonoBehaviour
             {
                 if (n.isSolid || closed.Contains(n))
                     continue;
+
                 if(!open.Contains(n))
                 {
                     n.parent = curr;
-                    n.gCost = curr.gCost + EuclideanDistance(n, curr);
-                    n.hCost = EuclideanDistance(n, curr);
+                    n.gCost = curr.gCost + ManhattanDistance(n, curr);
+                    n.hCost = ManhattanDistance(n, curr);
                     nearby.Add(n);
                 }
             }
 
-            nearby.Sort((x, y) => Mathf.RoundToInt(y.fCost - x.fCost));
+            nearby.Sort((x, y) => y.fCost - x.fCost);
             open = MergeLists(open, nearby);
         }
 
@@ -60,7 +61,7 @@ public class AStar : MonoBehaviour
     public List<Node> MakePath(Node s, Node e)
     {
         List<Node> path = new List<Node>();
-        Node current = e;
+        Node current = e.parent;
         while(current != s)
         {
             path.Add(current);
@@ -92,7 +93,7 @@ public class AStar : MonoBehaviour
             }
             if (j >= l2.Count)
             {
-                res.Add(l2[i]);
+                res.Add(l1[i]);
                 i++;
                 continue;
             }
@@ -104,7 +105,7 @@ public class AStar : MonoBehaviour
             }
             else
             {
-                res.Add(l1[j]);
+                res.Add(l2[j]);
                 j++;
             }
         }
@@ -117,7 +118,7 @@ public class AStar : MonoBehaviour
         return Mathf.Sqrt(n1.xPos - n2.xPos);
     }
 
-    float ManhattanDistance(Node n1, Node n2)
+    int ManhattanDistance(Node n1, Node n2)
     {
         return Mathf.Abs(n1.xPos - n2.yPos) + Mathf.Abs(n1.yPos - n2.yPos);
     }
@@ -131,7 +132,7 @@ public class AStar : MonoBehaviour
             {
                 foreach(Node n in draw)
                 {
-                    Gizmos.DrawWireCube(grid.WorldPointFromNode(n), new Vector3(1, 1, 1) * grid.resolution);
+                    Gizmos.DrawWireCube(grid.WorldPointFromNode(n) + new Vector3(0,0,-1), new Vector3(1, 1, 1) * grid.resolution);
                 }
             }
         }
