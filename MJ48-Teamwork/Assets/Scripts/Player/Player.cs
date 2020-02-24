@@ -15,6 +15,8 @@ public class Player : IAgent
     void Start()
     {
         inventory = new List<IItem>();
+        maxHealth = 100;
+        health = maxHealth;
     }
 
     void Update()
