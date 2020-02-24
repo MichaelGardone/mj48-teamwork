@@ -11,7 +11,7 @@ public class DoorAnim : MonoBehaviour
     [SerializeField] AudioClip doorOpen;
     [SerializeField] AudioClip doorClose;
     public AudioSource source;
-    void Start()
+    void Awake()
     {
         openValue = Animator.StringToHash("Open");
         anim = GetComponent<Animator>();

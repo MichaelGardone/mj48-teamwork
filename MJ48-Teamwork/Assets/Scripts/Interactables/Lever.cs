@@ -36,6 +36,11 @@ public class Lever : IInteractable
         }
     }
 
-    
+    private void OnMouseDown()
+    {
+        Interact();
+    }
+
+
 }
 
