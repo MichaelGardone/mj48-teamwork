@@ -18,7 +18,7 @@ public class Localize : MonoBehaviour
     private float offset;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         gridX = Mathf.RoundToInt(gridWorldSize.x / resolution);
         gridY = Mathf.RoundToInt(gridWorldSize.y / resolution);

@@ -15,8 +15,6 @@ public class Agent : IAgent
     Vector3 targetPosition = new Vector3(0,0,-100);
     Vector3 unset = new Vector3(0, 0, -100);
 
-    bool targetNotSet = true;
-
     void Start()
     {
         health = maxHealth;
@@ -34,26 +32,29 @@ public class Agent : IAgent
 
     private void FixedUpdate()
     {
-        if (path.Count > 0)
+        if(path != null)
         {
-            if (Vector3.Distance(transform.position, targetPosition) <= 0.25f || targetPosition == unset)
+            if (path.Count > 0)
             {
-                targetPosition = pathfinding.grid.WorldPointFromNode(path[0]);
-                targetPosition.z = 0;
-                path.RemoveAt(0);
+                if (Vector3.Distance(transform.position, targetPosition) <= 0.25f || targetPosition == unset)
+                {
+                    targetPosition = pathfinding.grid.WorldPointFromNode(path[0]);
+                    targetPosition.z = 0;
+                    path.RemoveAt(0);
+                }
+
+                if (targetPosition != unset)
+                {
+                    Vector3 dir = (targetPosition - transform.position).normalized * Time.deltaTime * moveSpeed;
+                    rb.velocity = dir;
+                }
             }
 
-            if (targetPosition != unset)
+            if (path.Count == 0 && Vector3.Distance(transform.position, targetPosition) <= 0.5f)
             {
-                Vector3 dir = (targetPosition - transform.position).normalized * Time.deltaTime * moveSpeed;
-                rb.velocity = dir;
+                rb.velocity = Vector2.zero;
+                targetPosition = unset;
             }
-        }
-
-        if (path.Count == 0 && Vector3.Distance(transform.position, targetPosition) <= 0.5f)
-        {
-            rb.velocity = Vector2.zero;
-            targetPosition = unset;
         }
     }
 
